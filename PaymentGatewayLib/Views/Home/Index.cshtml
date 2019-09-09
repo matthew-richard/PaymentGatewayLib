@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "PaymentGateway API";
+}
+<style>
+    .cd-actions .btn {
+        margin-top: 10px;
+    }
+
+    .cd-actions .btn-default {
+        background-color: mediumaquamarine;
+        color: white;
+    }
+
+    .cd-ping .btn-default {
+        background-color: gainsboro;
+    }
+
+    #charge-amount, #return-amount {
+        width: 50px;
+    }
+</style>
+<form action="/" method="post">
+    <input type="text" id="action-input" name="action" style="display: none"/>
+    <div class="row" style="text-align: center">
+        <div class="col-sm-12">
+            <label for="card-number"><h1>Card Number:</h1></label>
+            <input type="text" maxlength="15" id="card-number" name="card-number" required class="form-control" style="margin:auto; text-align: center"
+                   @if (ViewBag.CardNumber != null) { <text>value = "@ViewBag.CardNumber"</text> } />
+        </div>
+    </div>
+    <div class="row" style="text-align: center">
+        <h3 id="error-message" style="color: red; @if(ViewBag.ErrorMessage == null) { <text>display: none</text> } ">@ViewBag.ErrorMessage</h3>
+        <h3 id="success-message" style="color: green; @if(ViewBag.SuccessMessage == null) { <text>display: none</text> }">@ViewBag.SuccessMessage</h3>
+    </div>
+
+    <div class="row cd-actions" style="padding-top: 30px; padding-bottom: 30px;">
+        <div class="col-md-3">
+            <h2>Account exists?</h2>
+            <input type="submit" class="btn btn-default" value="Check" onclick="$('#action-input').val('checkExistence')" />
+        </div>
+        <div class="col-md-3">
+            <h2>Account balance?</h2>
+            <input type="submit" class="btn btn-default" value="Get Balance" onclick="$('#action-input').val('balance')" />
+        </div>
+        <div class="col-md-3">
+            <h2>Charge money</h2>
+            <label for="charge-amount">$:</label>
+            <input type="text" id="charge-amount" name="charge-amount" class="form-control" />
+            <input type="submit" class="btn btn-default" value="Charge" onclick="$('#action-input').val('charge')" />
+        </div>
+        <div class="col-md-3">
+            <h2>Give money</h2>
+            <label for="return-amount">$:</label>
+            <input type="text" id="return-amount" name="return-amount" class="form-control" />
+            <input type="submit" class="btn btn-default" value="Return" onclick="$('#action-input').val('return')" />
+        </div>
+    </div>
+
+    <div class="row cd-actions" style="padding-top: 30px; padding-bottom: 100px;">
+        <div class="col-md-3">
+            <h2>Activate account</h2>
+            <input type="submit" class="btn btn-default" value="Activate" onclick="$('#action-input').val('activate')" />
+        </div>
+    </div>
+
+    <hr/>
+
+    <div class="row cd-ping">
+        <div class="col-md-4"></div>
+        <div class="col-md-2" sstyle="text-align: center">
+            <input type="submit" class="btn btn-default" value="Ping" onclick="$('#card-number').attr('required', false); $('#action-input').val('ping')" />
+        </div>
+        <div class="col-md-2" sstyle="text-align: center">
+            <input type="submit" class="btn btn-default" value="Create Account" onclick="$('#card-number').attr('required', false); $('#action-input').val('create')" />
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</form>
